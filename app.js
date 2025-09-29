@@ -77,7 +77,14 @@ void (async () => {
     console.log(JSON.stringify(movieInstances, null, 2))
 
     // Retrieve movies
-    const movies = await Movie.findAll()
+    const movies = await Movie.findAll({
+      include: [
+        {
+          model: Person,
+          as: 'director'
+        }
+      ]
+    })
     console.log(movies.map((movie) => movie.get({ plain: true })))
 
     // Retrieve people
